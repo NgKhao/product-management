@@ -31,14 +31,21 @@ module.exports.index = async (req, res) => {
     }
 
 
-    console.log(req.query.status);
-
     let find = {
         deleted: false
     };
 
     if(req.query.status) {
         find.status = req.query.status;
+    }
+
+    let keyword = "";
+    if(req.query.keyword) {
+        keyword = req.query.keyword;
+
+        // regex in js
+        const regex = new RegExp(keyword, "i"); // String i để ko phân biệt hoa và thường
+        find.title = regex;
     }
 
     const products = await Product.find(find);
@@ -48,6 +55,7 @@ module.exports.index = async (req, res) => {
     res.render("admin/pages/products/index", {
         pageTitle: "Danh sách sản phẩm",
         products: products,
-        filterStatus: filterStatus
+        filterStatus: filterStatus,
+        keyword: keyword
     });
 };
