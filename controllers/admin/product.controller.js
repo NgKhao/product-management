@@ -1,6 +1,7 @@
 const Product = require("../../models/product.model")
 
 const filterStatusHelper = require("../../helpers/fillterStatus");
+const searchHelper = require("../../helpers/search");
 
 // [GET] /admin/products
 
@@ -16,13 +17,11 @@ module.exports.index = async (req, res) => {
         find.status = req.query.status;
     }
 
-    let keyword = "";
-    if(req.query.keyword) {
-        keyword = req.query.keyword;
+    // Tìm kiếm
+    const objectSearch = searchHelper(req.query);
 
-        // regex in js
-        const regex = new RegExp(keyword, "i"); // String i để ko phân biệt hoa và thường
-        find.title = regex;
+    if(objectSearch.regex){
+        find.title = objectSearch.regex;
     }
 
     const products = await Product.find(find);
@@ -33,6 +32,6 @@ module.exports.index = async (req, res) => {
         pageTitle: "Danh sách sản phẩm",
         products: products,
         filterStatus: filterStatus,
-        keyword: keyword
+        keyword: objectSearch.keyword
     });
 };
