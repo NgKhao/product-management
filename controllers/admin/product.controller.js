@@ -2,6 +2,7 @@ const Product = require("../../models/product.model")
 
 const filterStatusHelper = require("../../helpers/fillterStatus");
 const searchHelper = require("../../helpers/search");
+const paginationHelper = require("../../helpers/pagination");
 
 // [GET] /admin/products
 
@@ -26,22 +27,16 @@ module.exports.index = async (req, res) => {
     }
 
     // Pagination
-    let objectPagination = {
-        currentPage: 1,
-        limitItem: 4
-    }
-
-    if(req.query.page) {
-        objectPagination.currentPage = parseInt(req.query.page);
-    }
-
-    // công thức tính index sp  bắt đầu của trang được chọn
-    objectPagination.skip = (objectPagination.currentPage - 1) * objectPagination.limitItem;
-
     const countProducts = await Product.countDocuments(find);
-    const totalPage = Math.ceil(countProducts/objectPagination.limitItem); //làm tròn lên
-    objectPagination.totalPage = totalPage;
 
+    let objectPagination = paginationHelper(
+        {
+            currentPage: 1,
+            limitItem: 4
+        },
+        req.query,
+        countProducts
+    );
     // End Pagination
 
 
