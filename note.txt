@@ -1,0 +1,2 @@
+res.query lấy ra sau dấu ?
+res.params lấy ra sau /

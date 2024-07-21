@@ -52,3 +52,16 @@ module.exports.index = async (req, res) => {
         pagination: objectPagination
     });
 };
+
+// [GET]/change-status/:status/:id
+module.exports.changeStatus = async (req, res) => {
+    // console.log(req.params);
+    const status = req.params.status;
+    const id = req.params.id;
+
+    // chờ update xong mới phản hồi lại giao diện
+    await Product.updateOne({_id:id}, {status: status});
+
+    // chuyển hướng về trang trước
+    res.redirect("back");
+}   
