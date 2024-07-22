@@ -17,6 +17,8 @@ if(buttonsChangeStatus.length > 0) {
             // console.log(statusChange);
 
             const action = path + `/${statusChange}/${id}?_method=PATCH`;
+            // thêm ?_method=PATCH trong npm method overide để thay get thành patch
+
             // console.log(action);
             formChangeStatus.action = action;
 

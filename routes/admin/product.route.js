@@ -7,4 +7,7 @@ router.get("/", controller.index);
 // :status, :id là truyền router động 
 router.patch("/change-status/:status/:id", controller.changeStatus);
 
+
+router.patch("/change-multi", controller.changeMulti);
+
 module.exports = router;
