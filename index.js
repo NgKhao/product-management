@@ -2,6 +2,9 @@
 const express = require("express");
 const methodOverride = require("method-override"); // thêm thư viện này để thay GET form thành PATCH
 const bodyParser = require('body-parser') //thêm thư viện body parser để nhận đc data gửi lên
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const flash = require('express-flash') // thêm tvien thông báo
 require("dotenv").config();
 
 const database = require("./config/database");
@@ -19,12 +22,17 @@ const port = process.env.PORT;
 // thêm thư viện này để thay GET form thành PATCH
 app.use(methodOverride("_method"));
 
-// thêm thư viện body parser để nhận đc data gửi lên
+// thêm thư viện body parser để nhận đc data gửi lên, khai báo trước route
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.set("views", "./views");
 app.set("view engine", "pug");
+
+// Flash
+app.use(cookieParser('Asu'));
+app.use(session({ cookie: { maxAge: 60000 }}));
+app.use(flash());
 
 // app Locals Variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
