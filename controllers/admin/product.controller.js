@@ -94,8 +94,17 @@ module.exports.deleteItem = async (req, res) => {
     // console.log(req.params);
     const id = req.params.id;
 
-    // chờ update xong mới phản hồi lại giao diện
-    await Product.deleteOne({_id:id});
+    // xóa vĩnh viễn
+    // await Product.deleteOne({_id:id});
+
+    // xóa mềm
+    await Product.updateOne(
+        {_id: id}, 
+        {
+            deleted: true,
+            deleteAt: new Date()
+        }
+    );
 
     // chuyển hướng về trang trước
     res.redirect("back");
