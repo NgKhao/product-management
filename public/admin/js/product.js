@@ -6,7 +6,7 @@ if(buttonsChangeStatus.length > 0) {
     console.log(path);
 
     buttonsChangeStatus.forEach(button => {
-        button.addEventListener("click", ()=> {
+        button.addEventListener("click", () => {
             const statusCurrent = button.getAttribute("data-status");
             const id = button.getAttribute("data-id");
 
