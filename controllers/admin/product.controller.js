@@ -39,7 +39,10 @@ module.exports.index = async (req, res) => {
     // End Pagination
 
 
-    const products = await Product.find(find).limit(objectPagination.limitItem).skip(objectPagination.skip);
+    const products = await Product.find(find)
+        .sort({ position: "desc"}) //truyền obj sau đó là desc hoặc asc
+        .limit(objectPagination.limitItem)
+        .skip(objectPagination.skip);
 
     // console.log(products)
 
@@ -67,31 +70,50 @@ module.exports.changeStatus = async (req, res) => {
 
 // [PATCH] /admin/products/change-multi
 module.exports.changeMulti = async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
 
     const type = req.body.type;
     const ids = req.body.ids.split(", "); //chuyển String to Array
 
     switch (type) {
+        // { $in: ids}: update nhiều id
         case "active":
             await Product.updateMany({_id: { $in: ids}}, { status: "active"});
             break;
         case "inactive":
             await Product.updateMany({_id: { $in: ids}}, { status: "inactive"});
             break;
-        case "delete-all":
+        case "delete-all": //xóa mềm các sp được chọn 
             await Product.updateMany({_id: { $in: ids}}, 
                 {
                     deleted: true,
                     deleteAt: new Date(),
                 });
             break;
+        case "change-position": // thay đổi và sắp xếp vị trí từ cao đến thấp
+            for (const item of ids) {
+
+                // đầu tiên dùng split chuyển String thành Array ngăn cách bỏi -
+                // sau đó dùng destructuring để gán
+                let [id, position] = item.split("-");
+                position = parseInt(position);
+
+                // console.log(id);
+                // console.log(position);
+
+                await Product.updateOne(
+                    {_id: id}, 
+                    { position: position}
+                );
+
+            }
+            break;
         default:
             break;
     }
 
-    console.log(type);
-    console.log(ids);
+    // console.log(type);
+    // console.log(ids);
     res.redirect("back");
 
 }  
