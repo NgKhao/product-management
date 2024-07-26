@@ -8,7 +8,7 @@ include ../../mixins/alert.pug
 block main 
     +alert-success(5000)
 
-    h1 Trang danh sách sản phẩm
+    h1 Danh sách sản phẩm
 
     .card.mb-3  
         .card-header Bộ lọc và Tìm kiếm
@@ -22,9 +22,16 @@ block main
 
 
     .card.mb-3  
-        .card-header Danh sách sản phẩm
+        .card-header Danh sách
         .card-body 
-            +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+            .row 
+                .col-8 
+                    +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+                .col-4 
+                    a(
+                        href=`${prefixAdmin}/products/create`
+                        class="btn btn-outline-success"
+                    ) + Thêm mới
             table(
                 class="table table-hover table-sm"
                 checkbox-multi
@@ -37,6 +44,7 @@ block main
                         th Hình ảnh
                         th Tiêu đề
                         th Giá
+                        th Vị trí
                         th Trạng thái
                         th Hành động
 

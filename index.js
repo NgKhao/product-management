@@ -35,6 +35,7 @@ app.use(session({ cookie: { maxAge: 60000 }}));
 app.use(flash());
 
 // app Locals Variables
+// chỉ dùng được toàn trong toàn bộ file pug còn trong js phải request mới dùng đc
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
 app.use(express.static("public"));
