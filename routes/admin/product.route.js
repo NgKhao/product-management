@@ -1,5 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const multer  = require('multer') //upload ảnh
+const storageMulter = require("../../helpers/storageMulter")
+const upload = multer({ storage: storageMulter() }); //đứng từ thư mục cao nhất lưu ảnh tại thư mục upload
 
 const controller = require("../../controllers/admin/product.controller");
 router.get("/", controller.index);
@@ -16,6 +19,6 @@ router.delete("/delete/:id", controller.deleteItem);
 router.get("/create", controller.create);
 
 // click vào button tạo mới sẽ vào phương thức post để gửi lên sever
-router.post("/create", controller.createPost);
+router.post("/create", upload.single('thumbnail'), controller.createPost);
 
 module.exports = router;

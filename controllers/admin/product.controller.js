@@ -160,6 +160,7 @@ module.exports.create = async (req, res) => {
 
 // [POST] /admin/products/create
 module.exports.createPost = async (req, res) => {
+    console.log(req.file);
     req.body.price = parseInt(req.body.price);
     req.body.discountPercentage = parseInt(req.body.discountPercentage);
     req.body.stock = parseInt(req.body.stock);
@@ -170,6 +171,9 @@ module.exports.createPost = async (req, res) => {
     } else {
         req.body.position = parseInt(req.body.position);
     }
+
+    // lấy ảnh đưa vào folder uploads sau đó lấy đường link gán thumnail 
+    req.body.thumbnail = `/uploads/${req.file.filename}`;
 
     const product = new Product(req.body);
     await product.save();

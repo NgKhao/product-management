@@ -38,7 +38,7 @@ app.use(flash());
 // chỉ dùng được toàn trong toàn bộ file pug còn trong js phải request mới dùng đc
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
-app.use(express.static("public"));
+app.use(express.static("public")); // chỉ link trong pug
 
 // Routes
 routeAmin(app);
