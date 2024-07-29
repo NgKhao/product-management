@@ -185,3 +185,53 @@ module.exports.createPost = async (req, res) => {
     // còn file js phải khai bao request mới dùng đc
     res.redirect(`${systemConfig.prefixAdmin}/products`);
 };
+
+// [GET] /admin/products/edit/:id
+module.exports.edit = async (req, res) => {
+    // try cacth để khi user chỉnh sửa trên id trên tên miền sẽ không bị die 
+    try{
+        const find = {
+            deleted: false,
+            _id: req.params.id //lấy được id trên miền
+        }
+
+        const product = await Product.findOne(find);
+
+        // console.log(product);
+
+        res.render("admin/pages/products/edit", {
+            pageTitle: "Chỉnh sửa sản phẩm",
+            product: product
+        });
+    } catch (error) {
+        res.redirect(`${systemConfig.prefixAdmin}/products`);
+    }
+};
+
+// [PATCH] /admin/products/edit/:id
+module.exports.editPatch = async (req, res) => {
+    const id = req.params.id;
+
+    // console.log(req.file);
+    req.body.price = parseInt(req.body.price);
+    req.body.discountPercentage = parseInt(req.body.discountPercentage);
+    req.body.stock = parseInt(req.body.stock);
+    req.body.position = parseInt(req.body.position);
+
+    // lấy ảnh đưa vào folder uploads sau đó lấy đường link gán thumnail 
+    if(req.file){
+    req.body.thumbnail = `/uploads/${req.file.filename}`;
+    }
+
+    try {
+        await Product.updateOne({_id:id}, req.body);
+        req.flash('success', 'Cập nhật thành công!');
+
+    } catch (error) {
+        req.flash('error', 'Cập nhật thất bại!');
+    }
+
+    // prefixAdmin khai báo local trong index chỉ dùng dc trong toàn bộ file pug
+    // còn file js phải khai bao request mới dùng đc
+    res.redirect(`back`);
+}

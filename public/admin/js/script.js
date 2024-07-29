@@ -189,15 +189,15 @@ if(uploadImage) {
 }
 //End Upload Image
 
-// Delete Upload Image
-if(uploadImage) {
-    const removeImageInput = document.querySelector("[remove-image-input]");
-    removeImageInput.addEventListener("change", () => {
-        uploadImageInput.value = "";
-        uploadImagePreview.value = "";
-    })
-}
-// End Delete Upload Image
+// // Delete Upload Image
+// if(uploadImage) {
+//     const removeImageInput = document.querySelector("[remove-image-input]");
+//     removeImageInput.addEventListener("change", () => {
+//         uploadImageInput.value = "";
+//         uploadImagePreview.value = "";
+//     })
+// }
+// // End Delete Upload Image
 
 
 

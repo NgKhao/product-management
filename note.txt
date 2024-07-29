@@ -1,2 +1,2 @@
 res.query lấy ra sau dấu ?
-res.params lấy ra sau /
+res.params lấy ra data động
