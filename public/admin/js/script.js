@@ -176,8 +176,8 @@ if(showAlert) {
 // Upload Image
 const uploadImage = document.querySelector("[upload-image]");
 if(uploadImage) {
-    const uploadImageInput = document.querySelector("[upload-image-input]");
-    const uploadImagePreview = document.querySelector("[upload-image-preview]");
+    let uploadImageInput = document.querySelector("[upload-image-input]");
+    let uploadImagePreview = document.querySelector("[upload-image-preview]");
 
     uploadImageInput.addEventListener("change", (e) => {
         console.log(e);
@@ -189,15 +189,18 @@ if(uploadImage) {
 }
 //End Upload Image
 
-// // Delete Upload Image
-// if(uploadImage) {
-//     const removeImageInput = document.querySelector("[remove-image-input]");
-//     removeImageInput.addEventListener("change", () => {
-//         uploadImageInput.value = "";
-//         uploadImagePreview.value = "";
-//     })
-// }
-// // End Delete Upload Image
+// Delete Upload Image
+if(uploadImage) {
+    const removeImageInput = document.querySelector(".remove-image-input");
+    let uploadImageInput = document.querySelector("[upload-image-input]");
+    let uploadImagePreview = document.querySelector("[upload-image-preview]");
+
+    removeImageInput.addEventListener("click", () => {
+        uploadImageInput.value = "";
+        uploadImagePreview.src = "";
+    })
+}
+// End Delete Upload Image
 
 
 

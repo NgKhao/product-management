@@ -85,7 +85,7 @@
 }
 /* End Show Alert */
 
-/* Image Preview */
+/* Image Preview  and create delete button */
 .image-preview {
   width: 150px;
   height: auto;
@@ -98,4 +98,13 @@
 .image-preview[src=""] {
   display: none;
 }
-/*End Image Preview */
+
+.remove-image-input {
+  border: 1px solid;
+  display: none;
+}
+
+.image-preview[src]:not([src=""]) + .remove-image-input {
+  display: inline-block;
+}
+/* End Image Preview  and create delete button */
