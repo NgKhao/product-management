@@ -5,6 +5,8 @@ const storageMulter = require("../../helpers/storageMulter")
 const upload = multer({ storage: storageMulter() }); //đứng từ thư mục cao nhất lưu ảnh tại thư mục upload
 
 const controller = require("../../controllers/admin/product.controller");
+const validate = require("../../validates/admin/product.validate");
+
 router.get("/", controller.index);
 
 // :status, :id là truyền router động 
@@ -19,6 +21,11 @@ router.delete("/delete/:id", controller.deleteItem);
 router.get("/create", controller.create);
 
 // click vào button tạo mới sẽ vào phương thức post để gửi lên sever
-router.post("/create", upload.single('thumbnail'), controller.createPost);
+router.post(
+    "/create", 
+    upload.single('thumbnail'), 
+    validate.createPost,
+    controller.createPost
+);
 
 module.exports = router;
