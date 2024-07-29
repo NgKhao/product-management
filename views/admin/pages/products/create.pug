@@ -58,6 +58,7 @@ block main
       )
     div(
       class="form-group"
+      upload-image
     )
       label(for="thumbnail") Ảnh
       input(
@@ -66,8 +67,19 @@ block main
         id="thumbnail"
         name="thumbnail"
         accept="image/*" 
+        upload-image-input
       )
       //- accept="image/*"  tự lọc những file là ảnh
+      img(
+        src=""
+        upload-image-preview
+        class="image-preview"
+      )
+      
+      button(
+        remove-image-input
+        class="image-input"
+      ) Xóa
       
     div(class="form-group")
       label(for="position") Vị trí
