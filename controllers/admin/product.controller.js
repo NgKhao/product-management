@@ -154,7 +154,7 @@ module.exports.deleteItem = async (req, res) => {
 // [GET] /admin/products/create
 module.exports.create = async (req, res) => {
     res.render("admin/pages/products/create", {
-        pageTitle: "Thêm mới sản phẩm",
+        pageTitle: "Thêm mới sản phẩm", // tên tab
     });
 };
 
@@ -235,3 +235,25 @@ module.exports.editPatch = async (req, res) => {
     // còn file js phải khai bao request mới dùng đc
     res.redirect(`back`);
 }
+
+// [GET] /admin/products/detail/:id
+module.exports.detail = async (req, res) => {
+    // try cacth để khi user chỉnh sửa trên id trên tên miền sẽ không bị die 
+    try{
+        const find = {
+            deleted: false,
+            _id: req.params.id //lấy được id trên miền
+        }
+
+        const product = await Product.findOne(find);
+
+        console.log(product);
+
+        res.render("admin/pages/products/detail", {
+            pageTitle: product.title,
+            product: product
+        });
+    } catch (error) {
+        res.redirect(`${systemConfig.prefixAdmin}/products`);
+    }
+};

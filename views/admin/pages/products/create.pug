@@ -7,10 +7,10 @@ block main
   h1(class="mb-4") Thêm mới sản phẩm
 
   form(
-      action=`${prefixAdmin}/products/create`
-      id="form-create-product"
-      method="POST"
-      enctype="multipart/form-data"
+    action=`${prefixAdmin}/products/create`
+    id="form-create-product"
+    method="POST"
+    enctype="multipart/form-data"
   )
     div(class="form-group")
       label(for="title") Tiêu đề
@@ -78,12 +78,12 @@ block main
         upload-image-preview
         class="image-preview"
       )
-      
+
       button(
         type="button"
         class="remove-image-input"
       ) Xóa
-      
+
     div(class="form-group")
       label(for="position") Vị trí
       input(
