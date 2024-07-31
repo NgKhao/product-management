@@ -1,17 +1,21 @@
 const express = require("express");
+const multer = require("multer"); //upload ảnh
 const router = express.Router();
-const multer  = require('multer') //upload ảnh
-const storageMulter = require("../../helpers/storageMulter")
-const upload = multer({ storage: storageMulter() }); //đứng từ thư mục cao nhất lưu ảnh tại thư mục upload
+
+
+// const storageMulter = require("../../helpers/storageMulter")
+// const upload = multer({ storage: storageMulter() }); //đứng từ thư mục cao nhất lưu ảnh tại thư mục upload
+const upload = multer(); // upload online nên không cần truyền thư mục
 
 const controller = require("../../controllers/admin/product.controller");
 const validate = require("../../validates/admin/product.validate");
 
+const uploadCloud = require("../../middlewares/admin/uploadCloud.middleware")
+
 router.get("/", controller.index);
 
-// :status, :id là truyền router động 
+// :status, :id là truyền router động
 router.patch("/change-status/:status/:id", controller.changeStatus);
-
 
 router.patch("/change-multi", controller.changeMulti);
 
@@ -22,19 +26,21 @@ router.get("/create", controller.create);
 
 // click vào button tạo mới sẽ vào phương thức post để gửi lên sever
 router.post(
-    "/create", 
-    upload.single('thumbnail'), 
-    validate.createPost,
-    controller.createPost
+  "/create",
+  upload.single("thumbnail"),
+  uploadCloud.upload,
+  validate.createPost,
+  controller.createPost
 );
 
 router.get("/edit/:id", controller.edit);
 
 router.patch(
-    "/edit/:id", 
-    upload.single('thumbnail'), 
-    validate.createPost,
-    controller.editPatch
+  "/edit/:id",
+  upload.single("thumbnail"),
+  uploadCloud.upload,
+  validate.createPost,
+  controller.editPatch
 );
 
 router.get("/detail/:id", controller.detail);
