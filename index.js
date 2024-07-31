@@ -26,7 +26,11 @@ app.use(methodOverride("_method"));
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.set("views", "./views");
+// app.set("views", "./views");
+// khi deploy onl sẽ không hiểu folder views
+// nên phải trỏ từ folder gốc là __dirname 
+app.set("views", `${__dirname}/views`);
+
 app.set("view engine", "pug");
 
 // Flash
@@ -38,7 +42,11 @@ app.use(flash());
 // chỉ dùng được toàn trong toàn bộ file pug còn trong js phải request mới dùng đc
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
-app.use(express.static("public")); // chỉ link trong pug
+
+// app.use(express.static("public")); // chỉ link trong pug
+app.use(express.static(`${__dirname}/public`)); // khi deploy onl sẽ không hiểu folder public
+// nên phải trỏ từ folder gốc là __dirname 
+
 
 // Routes
 routeAmin(app);
