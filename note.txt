@@ -1,2 +1,3 @@
-res.query lấy ra sau dấu ?
+res.query lấy ra biến sau dấu ?
+ví dụ #status=active thì req.query.status sẽ là active
 res.params lấy ra data động

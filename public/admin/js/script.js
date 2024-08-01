@@ -21,7 +21,6 @@ if(buttonStatus.length > 0) {
         });
     });
 }
-
 // End Button Status
 
 // Form search
@@ -53,7 +52,7 @@ if(buttonPagination) {
     buttonPagination.forEach(button => {
         button.addEventListener("click", () => {
             const page = button.getAttribute("button-pagination");
-            console.log(page);
+            // console.log(page);
 
             url.searchParams.set("page", page);
 
@@ -202,5 +201,48 @@ if(uploadImage) {
 }
 // End Delete Upload Image
 
+// Sort 
+// check thử div sort có không rồi mới đi vào trong 
+const sort = document.querySelector("[sort]");
+if(sort) {
+    let url = new URL(window.location.href);
+
+    const sortSelect = sort.querySelector("[sort-select]");
+    const sortClear = sort.querySelector("[sort-clear]");
+
+    // Sắp xếp
+    sortSelect.addEventListener("change", (e) => {
+        const value = e.target.value; // lấy ra gatAttribute của value
+        const [sortKey, sortValue] = value.split("-"); //chuyển String thàng Array sau đó dùng destructoring để gán vào
+
+        url.searchParams.set("sortKey", sortKey);
+        url.searchParams.set("sortValue", sortValue);
+        
+        window.location.href = url.href;
+
+    });
+    
+    // xóa sắp xếp
+    sortClear.addEventListener("click", () => {
+        url.searchParams.delete("sortKey");
+        url.searchParams.delete("sortValue");
+
+        window.location.href = url.href;
+    });
+
+    // Thêm selected cho option vì lúc này vẫn chưa change được option
+    const sortKey = url.searchParams.get("sortKey");
+    const sortValue = url.searchParams.get("sortValue");
+    // get: lấy value của sortKey và sortValue 
+
+    if(sortKey && sortValue) {
+        const stringSort = `${sortKey}-${sortValue}`;
+        console.log(stringSort);
+        const optionSelected = sortSelect.querySelector(`option[value="${stringSort}"]`);
+        console.log(optionSelected);
+        optionSelected.selected = true;
+    }
+}
+// End Sort 
 
 
