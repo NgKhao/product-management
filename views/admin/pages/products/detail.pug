@@ -32,8 +32,8 @@ block main
     div(class="mb-4") Vị trí: <b>#{product.position}</b>
 
   if (product.description)
-    div(class="mb-4") #{product.description}
-
+    div(class="mb-4") !{product.description}
+    //- !{}chèn nội dung HTML mà không thoát các ký tự đặc biệt nên sẽ giữ nguyên định dạng
   a(
     href=`${prefixAdmin}/products/edit/${product.id}`
     class = "btn btn-warning"

@@ -1,10 +1,11 @@
 // cấu hình express
 const express = require("express");
+const path = require("path"); // cần cho TinyMCE
 const methodOverride = require("method-override"); // thêm thư viện này để thay GET form thành PATCH
-const bodyParser = require('body-parser') //thêm thư viện body parser để nhận đc data gửi lên
-const cookieParser = require('cookie-parser')
-const session = require('express-session')
-const flash = require('express-flash') // thêm tvien thông báo
+const bodyParser = require("body-parser"); //thêm thư viện body parser để nhận đc data gửi lên
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const flash = require("express-flash"); // thêm tvien thông báo
 require("dotenv").config();
 
 const database = require("./config/database");
@@ -28,25 +29,30 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // app.set("views", "./views");
 // khi deploy onl sẽ không hiểu folder views
-// nên phải trỏ từ folder gốc là __dirname 
+// nên phải trỏ từ folder gốc là __dirname
 app.set("views", `${__dirname}/views`);
 
 app.set("view engine", "pug");
 
 // Flash
-app.use(cookieParser('Asu'));
-app.use(session({ cookie: { maxAge: 60000 }}));
+app.use(cookieParser("Asu"));
+app.use(session({ cookie: { maxAge: 60000 } }));
 app.use(flash());
+
+// TinyMCE: thư viện để chỉnh sửa định dạng soạn thảo văn bản
+app.use(
+  "/tinymce",
+  express.static(path.join(__dirname, "node_modules", "tinymce"))
+);
+// End TinyMCE
 
 // app Locals Variables
 // chỉ dùng được toàn trong toàn bộ file pug còn trong js phải request mới dùng đc
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
-
 // app.use(express.static("public")); // chỉ link trong pug
 app.use(express.static(`${__dirname}/public`)); // khi deploy onl sẽ không hiểu folder public
-// nên phải trỏ từ folder gốc là __dirname 
-
+// nên phải trỏ từ folder gốc là __dirname
 
 // Routes
 routeAmin(app);
