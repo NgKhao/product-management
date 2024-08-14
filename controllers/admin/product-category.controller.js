@@ -26,25 +26,9 @@ module.exports.create = async (req, res) => {
     deleted: false,
   };
 
-  // tạo cây để phân nhánh danh mục
-  function createTree(arr, parentId = "") {
-    const tree = [];
-    arr.forEach((item) => {
-      if (item.parent_id === parentId) {
-        const newItem = item;
-        const children = createTree(arr, item.id);
-        if (children.length > 0) {
-          newItem.children = children;
-        }
-        tree.push(newItem);
-      }
-    });
-    return tree;
-  }
-
   const records = await ProductCategory.find(find);
 
-  const newRecords = createTree(records);
+  const newRecords = createTreeHelper.tree(records);
 
   // console.log(newRecords);
 
