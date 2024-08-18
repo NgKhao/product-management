@@ -1,3 +1,4 @@
 res.query lấy ra biến sau dấu ?
 ví dụ #status=active thì req.query.status sẽ là active
 res.params lấy ra data động
+bất cứ những gì data gửi lên thông qua form thì sẽ ở trong req.body
