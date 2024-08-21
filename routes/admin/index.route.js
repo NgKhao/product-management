@@ -8,6 +8,7 @@ const productCategoryRoutes = require("./product-category.route");
 
 const roleRoutes = require("./role.route");
 
+const accountRoutes = require("./account.route");
 
 
 module.exports = (app) => {
@@ -20,5 +21,7 @@ module.exports = (app) => {
     app.use(PATH_ADMIN + "/products-category", productCategoryRoutes);
 
     app.use(PATH_ADMIN + "/roles", roleRoutes);
+
+    app.use(PATH_ADMIN + "/accounts", accountRoutes);
 
 }
