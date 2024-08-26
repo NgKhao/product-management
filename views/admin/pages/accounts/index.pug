@@ -1,6 +1,8 @@
 extends ../../layouts/default.pug 
 
 block main  
+  if(role.permissions.includes("accounts_view"))
+
   h1(class="mb-4") Danh sách tài khoản 
 
   .card.mb-3
@@ -9,10 +11,11 @@ block main
       .row 
         .col-8 
         .col-4.text-right
-          a(
-            href=`${prefixAdmin}/accounts/create`
-            class="btn btn-outline-success"
-          ) + Thêm mới
+        if(role.permissions.includes("accounts_create"))
+            a(
+              href=`${prefixAdmin}/accounts/create`
+              class="btn btn-outline-success"
+            ) + Thêm mới
       table(
         class="table table-hover table-sm"
       )
@@ -41,29 +44,41 @@ block main
               td #{item.roleTitle}
               td #{item.email}
               td
-                if (item.status === "active")
-                  a(
-                    href="javascript:;"
-                    class="badge badge-success"
-                    data-status="active"
-                  ) Hoạt động
+                if(role.permissions.includes("accounts_edit"))
+                  if (item.status === "active")
+                    a(
+                      href="javascript:;"
+                      class="badge badge-success"
+                      data-status="active"
+                    ) Hoạt động
+                  else
+                    a(
+                      href="javascript:;"
+                      class="badge badge-danger"
+                      data-status="inactive"
+                    ) Dừng hoạt động
                 else
-                  a(
-                    href="javascript:;"
-                    class="badge badge-danger"
-                    data-status="inactive"
-                  ) Dừng hoạt động
+                  if(item.status == "active")
+                    span(
+                      class="badge badge-success"
+                    ) Hoạt động
+                  else 
+                    span(              
+                      class="badge badge-danger"
+                    ) Dừng hoạt động
               td
                 a(
                   class="btn btn-secondary btn-sm"
                   href=`${prefixAdmin}/accounts/detail/${item.id}`
                 ) Chi tiết
-                a(
-                  class="btn btn-warning btn-sm ml-1"
-                  href=`${prefixAdmin}/accounts/edit/${item.id}`
-                ) Sửa
-                button(
-                  class="btn btn-danger btn-sm ml-1"
-                ) Xóa
+                if(role.permissions.includes("accounts_edit"))
+                  a(
+                    class="btn btn-warning btn-sm ml-1"
+                    href=`${prefixAdmin}/accounts/edit/${item.id}`
+                  ) Sửa
+                if(role.permissions.includes("accounts_delete"))
+                  button(
+                    class="btn btn-danger btn-sm ml-1"
+                  ) Xóa
 
   
