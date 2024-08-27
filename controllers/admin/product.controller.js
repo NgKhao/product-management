@@ -219,7 +219,7 @@ module.exports.createPost = async (req, res) => {
   // }
 
   // thêm acc đã tạo sp
-  req.body.createBy = {
+  req.body.createdBy = {
     account_id: res.locals.user._id,
   };
 
