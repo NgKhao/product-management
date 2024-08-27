@@ -1,13 +1,14 @@
 const mongoose = require("mongoose");
-const slug = require('mongoose-slug-updater');
+const slug = require("mongoose-slug-updater");
 
 mongoose.plugin(slug);
 
-const productSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema(
+  {
     title: String, //San Pham 1
     product_category_id: {
-        type: String,
-        default: ""
+      type: String,
+      default: "",
     },
     description: String,
     price: Number,
@@ -16,21 +17,31 @@ const productSchema = new mongoose.Schema({
     thumbnail: String,
     status: String,
     position: Number,
-    slug: { 
-        type: String, 
-        slug: "title",//San-Pham-1
-        unique: true //này nó sẽ giống như id để không bị trùng miền
+    slug: {
+      type: String,
+      slug: "title", //San-Pham-1
+      unique: true, //này nó sẽ giống như id để không bị trùng miền
+    },
+    createdBy: {
+      // tạo bởi ai, thời gian nào?
+      account_id: String,
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
     },
     deleted: {
-        type: Boolean,
-        default: false
+      type: Boolean,
+      default: false,
     },
-    deleteAt: Date
-}, {
-    timestamps: true // time stamps của mongoose 
+    deleteAt: Date,
+
+  },
+  {
+    timestamps: true, // time stamps của mongoose
     //để truyền thời gian tạo và update
-}
-)
+  }
+);
 
 const Product = mongoose.model("Product", productSchema, "products");
 
