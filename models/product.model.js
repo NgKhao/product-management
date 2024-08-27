@@ -34,8 +34,12 @@ const productSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    deleteAt: Date,
-
+    // deleteAt: Date,
+    deletedBy: {
+      // tạo bởi ai, thời gian nào?
+      account_id: String,
+      deletedAt: Date,
+    },
   },
   {
     timestamps: true, // time stamps của mongoose
