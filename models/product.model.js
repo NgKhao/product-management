@@ -40,6 +40,13 @@ const productSchema = new mongoose.Schema(
       account_id: String,
       deletedAt: Date,
     },
+    // updatedBy: dùng array vì chỉnh sửa đc nhiều lần
+    updatedBy: [
+      {
+        account_id: String,
+        updatedAt: Date
+      }
+    ],
   },
   {
     timestamps: true, // time stamps của mongoose
