@@ -10,7 +10,7 @@ if(buttonsChangeStatus.length > 0) {
             const statusCurrent = button.getAttribute("data-status");
             const id = button.getAttribute("data-id");
 
-            let statusChange = statusCurrent == "active" ? "inative" : "active";
+            let statusChange = statusCurrent == "active" ? "inactive" : "active";
     
             // console.log(statusCurrent);
             // console.log(id);
