@@ -1,5 +1,7 @@
 const Product = require("../../models/product.model");
 
+const productsHelper = require("../../helpers/products");
+
 // [GET]/products
 module.exports.index = async (req, res) => {
     const products = await Product.find({
@@ -7,10 +9,7 @@ module.exports.index = async (req, res) => {
         deleted: false
     }).sort({ position: "desc"}) //truyền obj sau đó là desc hoặc asc
 
-    const newProduct = products.map(item => {
-        item.priceNew = (item.price * (100 -item.discountPercentage) / 100).toFixed(2);
-        return item;
-    })
+    const newProduct = productsHelper.priceNewProducts(products);
 
     // console.log(newProduct[0]);
 
