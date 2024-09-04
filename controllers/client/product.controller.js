@@ -21,19 +21,33 @@ module.exports.index = async (req, res) => {
   });
 };
 
-// [GET]/products/:slug
+// [GET]/products/detail/:slugProduct
 module.exports.detail = async (req, res) => {
   // try cacth để khi user chỉnh sửa trên id trên tên miền sẽ không bị die
   try {
     const find = {
       deleted: false,
-      slug: req.params.slug, //lấy được id trên miền
+      slug: req.params.slugProduct, //lấy được id trên miền
       status: "active",
     };
 
     const product = await Product.findOne(find);
 
+    //tìm và thêm key danh mục của sp vào sp
+    if (product.product_category_id) {
+      const category = await ProductCategory.findOne({
+        _id: product.product_category_id,
+        status: "active",
+        deleted: false,
+      });
+
+      product.category = category;
+    }
+
     // console.log(product);
+
+    // thêm key giá sau giảm vào sp 
+    product.priceNew = productsHelper.priceNewProduct(product);
 
     res.render("client/pages/products/detail", {
       pageTitle: product.title,
