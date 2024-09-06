@@ -95,3 +95,32 @@ module.exports.editPatch = async (req, res) => {
 
   res.redirect("back");
 };
+
+// [GET] /admin/products-category/detail/:id
+module.exports.detail = async (req, res) => {
+  const id = req.params.id;
+
+  const find = {
+    _id: id,
+    deleted: false,
+  }
+
+  const productCategory = await ProductCategory.findOne(find);
+
+  if(productCategory.parent_id) {
+    const parentProductCategory = await ProductCategory.findOne({
+      _id: productCategory.parent_id,
+      deleted: false,
+    });
+
+    productCategory.parentTitle = parentProductCategory.title;
+  }
+
+  // console.log(productCategory);
+
+  res.render("admin/pages/products-category/detail", {
+    pageTitle: productCategory.title,
+    productCategory: productCategory,
+  });
+
+};

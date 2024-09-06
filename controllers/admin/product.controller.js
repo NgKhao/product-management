@@ -363,7 +363,7 @@ module.exports.detail = async (req, res) => {
 
     const product = await Product.findOne(find);
 
-    console.log(product);
+    // console.log(product);
 
     res.render("admin/pages/products/detail", {
       pageTitle: product.title,
