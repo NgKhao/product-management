@@ -37,6 +37,16 @@ block main
           tbody
             +table-tree(records)
 
+    //- form để thực hiện việc delete 1 category
+    form(
+      action=""
+      method="POST"
+      id="form-delete-item"
+      data-path=`${prefixAdmin}/products-category/delete`
+    )
+
+    script(src="/admin/js/product.js") 
+
 
 
 

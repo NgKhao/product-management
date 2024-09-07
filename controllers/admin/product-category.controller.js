@@ -103,11 +103,11 @@ module.exports.detail = async (req, res) => {
   const find = {
     _id: id,
     deleted: false,
-  }
+  };
 
   const productCategory = await ProductCategory.findOne(find);
 
-  if(productCategory.parent_id) {
+  if (productCategory.parent_id) {
     const parentProductCategory = await ProductCategory.findOne({
       _id: productCategory.parent_id,
       deleted: false,
@@ -122,5 +122,15 @@ module.exports.detail = async (req, res) => {
     pageTitle: productCategory.title,
     productCategory: productCategory,
   });
+};
 
+// [PATCH] /admin/products-category/delete/:id
+module.exports.deleteItem = async (req, res) => {
+  const id = req.params.id;
+
+  await ProductCategory.updateOne({ _id: id }, { deleted: true });
+
+  req.flash("success", "Dã xóa thành công sản phẩm");
+
+  res.redirect("back");
 };

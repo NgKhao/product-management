@@ -29,8 +29,6 @@ block main
     div(class="mb-4") !{productCategory.description}
     //- !{}chèn nội dung HTML mà không thoát các ký tự đặc biệt nên sẽ giữ nguyên định dạng
   a(
-    href=`${prefixAdmin}/products/edit/${productCategory.id}`
+    href=`${prefixAdmin}/products-category/edit/${productCategory.id}`
     class = "btn btn-warning"
   ) Chỉnh sửa
-
-  script(src="/admin/js/product.js") 
