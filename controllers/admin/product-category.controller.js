@@ -130,7 +130,19 @@ module.exports.deleteItem = async (req, res) => {
 
   await ProductCategory.updateOne({ _id: id }, { deleted: true });
 
-  req.flash("success", "Dã xóa thành công sản phẩm");
+  req.flash("success", "Đã xóa thành công sản phẩm");
+
+  res.redirect("back");
+};
+
+// [PATCH] /admin/products-category/change-status/:id
+module.exports.changeStatus = async (req, res) => {
+  const id = req.params.id;
+  const status = req.params.status;
+
+  await ProductCategory.updateOne({ _id: id }, { status: status });
+
+  req.flash("success", "Cập nhật trạng thái thành công!");
 
   res.redirect("back");
 };

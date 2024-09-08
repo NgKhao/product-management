@@ -1,9 +1,12 @@
 extends ../../layouts/default.pug
 include ../../mixins/table-tree.pug
+include ../../mixins/alert.pug
 
 block main 
   //- if này để bắt lỗi trường hợp truy cập trực tiếp vào link products-category
   if(role.permissions.includes("product-category_view"))
+
+    +alert-success(5000)
 
     h1 Danh mục sản phẩm
 
@@ -36,6 +39,13 @@ block main
 
           tbody
             +table-tree(records)
+    //- form thực hiện việc thay đổi status 1 category 
+    form(
+      action=""
+      method="POST"
+      id="form-change-status"
+      data-path=`${prefixAdmin}/products-category/change-status`
+    )
 
     //- form để thực hiện việc delete 1 category
     form(
