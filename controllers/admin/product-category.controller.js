@@ -40,19 +40,26 @@ module.exports.create = async (req, res) => {
 
 // [POST] /admin/products-category/create
 module.exports.createPost = async (req, res) => {
-  if (req.body.position == "") {
-    const count = await ProductCategory.countDocuments();
-    req.body.position = count + 1;
+  const permissions = res.locals.role.permissions;
+// permissions.includes("products-category_create": check không cho tạo trực tiếp bên postman
+  if (permissions.includes("products-category_create")) {
+    if (req.body.position == "") {
+      const count = await ProductCategory.countDocuments();
+      req.body.position = count + 1;
+    } else {
+      req.body.position = parseInt(req.body.position);
+    }
+
+    const record = new ProductCategory(req.body);
+    await record.save();
+
+    // prefixAdmin khai báo local trong index chỉ dùng dc trong toàn bộ file pug
+    // còn file js phải khai bao request mới dùng đc
+    res.redirect(`${systemConfig.prefixAdmin}/products-category`);
   } else {
-    req.body.position = parseInt(req.body.position);
+    res.send("403");
+    return;
   }
-
-  const record = new ProductCategory(req.body);
-  await record.save();
-
-  // prefixAdmin khai báo local trong index chỉ dùng dc trong toàn bộ file pug
-  // còn file js phải khai bao request mới dùng đc
-  res.redirect(`${systemConfig.prefixAdmin}/products-category`);
 };
 
 // [GET] /admin/products-category/edit/:id
