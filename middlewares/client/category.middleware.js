@@ -1,4 +1,4 @@
-const ProductCategory = require("../../models/products-category.model");
+const ProductCategory = require("../../models/product-category.model");
 const createTreeHelper = require("../../helpers/createTree");
 
 // chuyển này qua middleware để layoutProductsCategory dùng biến toàn cục
