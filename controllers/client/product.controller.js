@@ -68,11 +68,11 @@ module.exports.category = async (req, res) => {
     status: "active",
     deleted: false,
   });
-  //   console.log(category.id);
+    // console.log(category.id);
   // end find id category based on slug
 
   const listSubCategory = await productsCategoryHelper.getSubCategory(
-    category.id
+    category._id
   );
 
   // map: sẽ duyệt qua từng element và trả về 1 arr element.id
@@ -84,6 +84,7 @@ module.exports.category = async (req, res) => {
     // $in: toán tử check có value nằm trong danh sách đó ko?
     // ...listSubCategoryId: giải nén arr thành các đối số như 01, 02, 03
     product_category_id: { $in: [category.id, ...listSubCategoryId] },
+    status: "active",
     deleted: false,
   }).sort({ position: "desc" });
 

@@ -5,6 +5,7 @@ const createTreeHelper = require("../../helpers/createTree");
 // để dùng cho trang product luôn
 module.exports.category = async (req, res, next) => {
   let find = {
+    status: "active",
     deleted: false,
   };
 
