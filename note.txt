@@ -5,3 +5,4 @@ bất cứ những gì data gửi lên thông qua form thì sẽ ở trong req.b
 những cái name trong input,.. là cái key sẽ được gửi vào res.body
 authen: 1 acc đã login thành công hay chưa
 author: check acc đó có những quyền gì
+$: trong mongoDB chỉ ra vị trị của ptu mà muốn truy cập và update
