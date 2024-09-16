@@ -12,3 +12,5 @@ vì khi dùng get, user can access thông qua link sẽ gây xóa trực tiếp
 còn delete 1 product trong giỏ hàng thì dùng get cho tiện
 
 $pull: toán tử xóa 1 ptu trong 1 arr trong mongose
+
+e.target trong eventlistener = cái mà .addEventListener ( ví dụ như input.addEventListener)

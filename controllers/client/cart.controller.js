@@ -122,3 +122,27 @@ module.exports.delete = async (req, res) => {
   req.flash("success", "Đã xóa sản phẩm khỏi giỏ hàng");
   res.redirect("back");
 };
+
+// [GET] /cart/update/:productId/:quantity
+module.exports.update = async (req, res) => {
+  const cartId = req.cookies.cartId;
+
+  const productId = req.params.productId;
+
+  const quantity = req.params.quantity;
+
+  // update quantity của 1 product
+  // bản chất các trường khi trong mongose sẽ là JSON nên có ""
+  await Cart.updateOne(
+    {
+      _id: cartId,
+      "products.product_id": productId,
+    },
+    {
+      "products.$.quantity": quantity,
+    }
+  );
+
+  req.flash("success", "Đã cập nhập số lượng");
+  res.redirect("back");
+};
