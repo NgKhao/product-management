@@ -5,3 +5,12 @@ bất cứ những gì data gửi lên thông qua form thì sẽ ở trong req.b
 những cái name trong input,.. là cái key sẽ được gửi vào res.body
 authen: 1 acc đã login thành công hay chưa
 author: check acc đó có những quyền gì
+$: trong mongoDB chỉ ra vị trị của ptu mà muốn truy cập và update
+
+delete 1 product bên admin nên dùng method delete or patch, không dùng get
+vì khi dùng get, user can access thông qua link sẽ gây xóa trực tiếp
+còn delete 1 product trong giỏ hàng thì dùng get cho tiện
+
+$pull: toán tử xóa 1 ptu trong 1 arr trong mongose
+
+e.target trong eventlistener = cái mà .addEventListener ( ví dụ như input.addEventListener)
