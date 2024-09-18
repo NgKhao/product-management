@@ -95,9 +95,46 @@ module.exports.order = async (req, res) => {
       _id: cartId,
     },
     {
-      products: []
+      products: [],
     }
   );
 
   res.redirect(`/checkout/success/${order.id}`);
+};
+
+// [GET] /checkout/success/:orderId
+module.exports.success = async (req, res) => {
+  // console.log(req.params.orderId);
+
+  const order = await Order.findOne({
+    _id: req.params.orderId,
+  });
+
+  for (const product of order.products) {
+    // truy vấn để lấy title, thumnail đưa vào trường productInfo
+    const productInfo = await Product.findOne({
+      _id: product.product_id,
+    }).select("title thumbnail");
+
+    product.productInfo = productInfo;
+
+    product.priceNew = productHelper.priceNewProduct(product);
+
+    // Tổng tiền 1 loại sp
+    product.totalPrice = product.priceNew * product.quantity;
+  }
+  // console.log(order);
+
+  // tổng tiền đơn đặt
+  // phải có tham số 0 trong reduce() để gán cho sum,
+  // nếu ko có nó sẽ lấy cả item gán sum chứ ko phải item.totalPrice
+  order.totalPrice = order.products.reduce(
+    (sum, item) => sum + item.totalPrice,
+    0
+  );
+
+  res.render("client/pages/checkout/success", {
+    pageTitle: "Đặt hàng thành công",
+    order: order,
+  });
 };
