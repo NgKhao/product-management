@@ -75,3 +75,11 @@ module.exports.loginPost = async (req, res) => {
 
   res.redirect("/");
 };
+
+// [GET] /user/logout
+module.exports.logout = async (req, res) => {
+  // xóa tokenUser trong cookie 
+  res.clearCookie("tokenUser");
+  
+  res.redirect("/"); //chuyển hướng trang chủ
+};
