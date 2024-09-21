@@ -1,5 +1,6 @@
 const categoryMiddleWare = require("../../middlewares/client/category.middleware");
 const cartMiddleWare = require("../../middlewares/client/cart.middleware");
+const userMiddleWare = require("../../middlewares/client/user.middleware");
 
 
 const productRoutes = require("./product.route");
@@ -16,6 +17,8 @@ module.exports = (app) => {
 
 // app.use(categoryMiddleWare.cartId): app sẽ use hàm category cho all các route ở dưới
   app.use(cartMiddleWare.cartId);
+
+  app.use(userMiddleWare.infoUser);
 
   app.use("/", homeRoutes);
 
