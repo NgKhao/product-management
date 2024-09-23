@@ -2,6 +2,7 @@ const md5 = require("md5"); //libary mã hóa password
 
 const User = require("../../models/user.model");
 const ForgotPassword = require("../../models/forgot-password.model");
+const Cart = require("../../models/cart.model");
 
 const generateHelper = require("../../helpers/generate");
 const sendMailHelper = require("../../helpers/sendMail");
@@ -74,6 +75,16 @@ module.exports.loginPost = async (req, res) => {
   }
 
   res.cookie("tokenUser", user.tokenUser);
+
+  // Lưu user_id vào collection carts
+  await Cart.updateOne(
+    {
+      _id: req.cookies.cartId,
+    },
+    {
+      user_id: user.id,
+    }
+  );
 
   res.redirect("/");
 };
@@ -190,7 +201,7 @@ module.exports.resetPasswordPost = async (req, res) => {
       password: md5(password),
     }
   );
-  
+
   req.flash("success", "Cập nhập mật khẩu thành công");
 
   res.redirect("/");
