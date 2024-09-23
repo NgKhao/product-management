@@ -31,8 +31,6 @@ module.exports.registerPost = async (req, res) => {
   const user = new User(req.body);
   await user.save();
 
-  console.log(user);
-
   // phản hồi đưa tokenUser vào cookie
   res.cookie("tokenUser", user.tokenUser);
 
@@ -192,6 +190,8 @@ module.exports.resetPasswordPost = async (req, res) => {
       password: md5(password),
     }
   );
+  
+  req.flash("success", "Cập nhập mật khẩu thành công");
 
-  res.send("Ok");
+  res.redirect("/");
 };
