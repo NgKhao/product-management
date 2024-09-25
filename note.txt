@@ -14,3 +14,10 @@ còn delete 1 product trong giỏ hàng thì dùng get cho tiện
 $pull: toán tử xóa 1 ptu trong 1 arr trong mongose
 
 e.target trong eventlistener = cái mà .addEventListener ( ví dụ như input.addEventListener)
+
+resquest: client gửi yc lên server
+respone phanr hồi server về client
+ta code đang chạy trên server nên ta đang đứng ở vị trí của server
+
+validate: dùng để bắt các trường hợp lỗi
+middleware: cái trung gian
