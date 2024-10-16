@@ -9,7 +9,9 @@ block main
 
     .row 
       .col-12 
-        .chat 
+        //- user là biến locals trong user.middleware 
+        //- gán user.id cho my-id để lấy xử lý bên chat.js 
+        .chat(my-id=user.id)
           .inner-body 
             each chat in chats 
               //- check userId của tin nhắn có phải là của user login không 
@@ -19,20 +21,6 @@ block main
                   .inner-name #{chat.infoUser.fullName}
                 .inner-content
                   | #{chat.content}
-            //- .inner-outgoing 
-            //-   .inner-content 
-            //-     | Thế à? Ok 
-            //- .inner-incoming 
-            //-   .inner-name Em Yeu 
-            //-   .inner-content
-            //-     | Nhanh nha 
-            //- .inner-outgoing 
-            //-   .inner-content 
-            //-     | ck den roi ko thay ai o nha 
-            //- .inner-incoming 
-            //-   .inner-name Em Yeu 
-            //-   .inner-content 
-            //-     | thi em bao nha em khoong ai o nha ma :))
           .inner-foot 
             form(
               class="inner-form"
