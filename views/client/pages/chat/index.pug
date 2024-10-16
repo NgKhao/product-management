@@ -1,0 +1,45 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main 
+  .container.my-3 
+    .row 
+      .col-12 
+       +box-head("Chat")
+
+    .row 
+      .col-12 
+        .chat 
+          .inner-body 
+            .inner-incoming 
+              .inner-name Em Yeu
+                .inner-content
+                  | A ơi sang nhà em nha, nhà em không có ai
+            .inner-outgoing 
+              .inner-content 
+                | Thế à? Ok 
+            .inner-incoming 
+              .inner-name Em Yeu 
+              .inner-content
+                | Nhanh nha 
+            .inner-outgoing 
+              .inner-content 
+                | ck den roi ko thay ai o nha 
+            .inner-incoming 
+              .inner-name Em Yeu 
+              .inner-content 
+                | thi em bao nha em khoong ai o nha ma :))
+          .inner-foot 
+            form(
+              class="inner-form"
+              action=""
+            )
+              input(
+                type="text"
+                placeholder="Nhap noi dung..."
+                name="content"
+              )
+              button 
+                i.fa-solid.fa-paper-plane
+                //- icon trong fontawesome 
+
