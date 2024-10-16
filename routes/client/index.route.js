@@ -2,6 +2,7 @@ const categoryMiddleWare = require("../../middlewares/client/category.middleware
 const cartMiddleWare = require("../../middlewares/client/cart.middleware");
 const userMiddleWare = require("../../middlewares/client/user.middleware");
 const settingMiddleware = require("../../middlewares/client/setting.middleware");
+const authMiddleware = require("../../middlewares/client/auth.middleware");
 
 const productRoutes = require("./product.route");
 const homeRoutes = require("./home.route");
@@ -36,6 +37,6 @@ module.exports = (app) => {
 
   app.use("/user", userRoutes);
 
-  app.use("/chat", chatRoutes);
+  app.use("/chat",authMiddleware.requireAuth ,chatRoutes);
 
 };
