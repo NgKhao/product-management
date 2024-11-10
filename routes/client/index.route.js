@@ -12,7 +12,6 @@ const checkoutRoutes = require("./checkout.route");
 const userRoutes = require("./user.route");
 const chatRoutes = require("./chat.route");
 
-
 module.exports = (app) => {
   // app.use(categoryMiddleWare.category): app sẽ use hàm category cho all các route ở dưới
   app.use(categoryMiddleWare.category);
@@ -23,7 +22,6 @@ module.exports = (app) => {
   app.use(userMiddleWare.infoUser);
 
   app.use(settingMiddleware.settingGeneral);
-
 
   app.use("/", homeRoutes);
 
@@ -37,6 +35,9 @@ module.exports = (app) => {
 
   app.use("/user", userRoutes);
 
-  app.use("/chat",authMiddleware.requireAuth ,chatRoutes);
+  app.use("/chat", authMiddleware.requireAuth, chatRoutes);
 
+  // xử lý call Back Pay Ment
+  const controller = require("../../controllers/client/checkout.controller");
+  app.post("/callback", controller.callbackPayment);
 };
