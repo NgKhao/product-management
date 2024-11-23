@@ -1,0 +1,37 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main 
+  .container.my-3 
+    .row 
+      .col-12 
+       +box-head("Chat")
+
+    .row 
+      .col-12 
+        //- user là biến locals trong user.middleware 
+        //- gán user.id cho my-id để lấy xử lý bên chat.js 
+        .chat(my-id=user.id)
+          .inner-body 
+            each chat in chats 
+              //- check userId của tin nhắn có phải là của user login không 
+              div(class=(chat.infoUser.id == user.id ? "inner-outgoing" : "inner-incoming")) 
+                //- nếu không phải user login vào thì mới hiện 
+                if(chat.infoUser.id != user.id) 
+                  .inner-name #{chat.infoUser.fullName}
+                .inner-content
+                  | #{chat.content}
+          .inner-foot 
+            form(
+              class="inner-form"
+              action=""
+            )
+              input(
+                type="text"
+                placeholder="Nhap noi dung..."
+                name="content"
+              )
+              button 
+                i.fa-solid.fa-paper-plane
+                //- icon trong fontawesome 
+
