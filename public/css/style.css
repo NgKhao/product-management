@@ -265,7 +265,7 @@
 }
 
 .chat .inner-head .inner-avatar {
-  background: #FE5DA3;
+  background: #fe5da3;
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -293,7 +293,7 @@
 }
 
 .chat .inner-body .inner-content {
-  background: #F1F1F1;
+  background: #f1f1f1;
   margin-bottom: 10px;
   max-width: 220px;
   padding: 5px 10px;
@@ -303,7 +303,7 @@
 
 .chat .inner-outgoing .inner-content {
   margin-left: auto;
-  background: #FE5DA3;
+  background: #fe5da3;
   color: #fff;
 }
 
@@ -328,8 +328,8 @@
 
 .chat .inner-form button {
   border-radius: 15px;
-  border: 1px solid #FE5DA3;
-  background: #FE5DA3;
+  border: 1px solid #fe5da3;
+  background: #fe5da3;
   color: #fff;
   height: 32px;
   padding: 0 10px;
@@ -378,3 +378,14 @@
   background-size: contain;
 }
 /* End chat */
+
+/* emoji-picker */
+.tooltip {
+  visibility: hidden;
+}
+
+.tooltip.shown {
+  visibility: visible;
+  opacity: 1;
+}
+/*end emoji-picker */
