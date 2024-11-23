@@ -38,5 +38,16 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
   `;
   // thêm thẻ vào cuối
   body.appendChild(div);
+
+  // scroll đến cuối
+  bodyChat.scrollTop = bodyChat.scrollHeight;
 });
 //END_SERVER RETURN_MESSAGE
+
+// Scroll chat to bottom
+const bodyChat = document.querySelector(".chat .inner-body");
+if (bodyChat) {
+  // scroll đến cuối
+  bodyChat.scrollTop = bodyChat.scrollHeight;
+}
+//End Scroll chat to bottom
