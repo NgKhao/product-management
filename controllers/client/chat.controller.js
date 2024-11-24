@@ -23,6 +23,16 @@ module.exports.index = async (req, res) => {
         content: content,
       });
     });
+
+    // giao tiếp dùng khi typing
+    socket.on("CLIENT_SEND_TYPING", (type) => {
+      // trả về cho các client khác
+      socket.broadcast.emit("SERVER_RETURN_TYPING", {
+        userId: userId,
+        fullName: fullName,
+        type: type,
+      });
+    });
   });
   // End SocketIO
 
