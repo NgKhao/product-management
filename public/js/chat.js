@@ -1,6 +1,13 @@
 // dùng cho button-icon
 import * as Popper from "https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js";
 
+//FileUploadWithPreview
+const upload = new FileUploadWithPreview.FileUploadWithPreview("upload-image", {
+  multiple: true, // chuyển sang up nhiều ảnh
+  maxFileCount: 6, //set mãx 6 img
+});
+//End FileUploadWithPreview
+
 //CLIENT_SEND_MESSAGE
 const formSendData = document.querySelector(".chat .inner-form");
 if (formSendData) {
@@ -9,9 +16,20 @@ if (formSendData) {
     // content của thuộc tính name
     const content = e.target.elements.content.value;
 
-    if (content) {
-      socket.emit("CLIENT_SEND_MESSAGE", content); //client phát data
+    // return 1 arr obj imgs
+    const images = upload.cachedFileArray || [];
+
+    if (content || images.length > 0) {
+      // gửi content hoặc ảnh lên server
+
+      //client phát data
+      socket.emit("CLIENT_SEND_MESSAGE", {
+        content: content,
+        images: images,
+      });
+
       e.target.elements.content.value = "";
+      upload.resetPreviewPanel(); //clear all selected imgs
       socket.emit("CLIENT_SEND_TYPING", "hidden");
     }
   });
@@ -29,6 +47,8 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
   const div = document.createElement("div");
 
   let htmlFullName = "";
+  let htmlContent = "";
+  let htmlImages = "";
 
   // check nếu không phải user loggin thì thên name vào
   if (myId == data.userId) {
@@ -37,9 +57,27 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
     div.classList.add("inner-incoming");
     htmlFullName = `<div class="inner-name">${data.fullName}</div>`;
   }
+
+  if (data.content) {
+    htmlContent = `<div class="inner-content">${data.content}</div>`;
+  }
+
+  if (data.images) {
+    htmlImages += `<div class="inner-images">`;
+
+    for (const image of data.images) {
+      htmlImages += `
+      <img src="${image}">
+      `;
+    }
+
+    htmlImages += `</div>`;
+  }
+
   div.innerHTML = `
     ${htmlFullName}
-    <div class="inner-content">${data.content}</div>
+    ${htmlContent}
+    ${htmlImages}
   `;
   // thêm tin nhắn trước  phần typing
   body.insertBefore(div, boxTyping);

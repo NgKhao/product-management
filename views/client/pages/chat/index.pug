@@ -5,7 +5,7 @@ block main
   .container.my-3 
     .row 
       .col-12 
-       +box-head("Chat")
+        +box-head("Chat")
 
     .row 
       .col-12 
@@ -19,8 +19,13 @@ block main
                 //- nếu không phải user login vào thì mới hiện 
                 if(chat.infoUser.id != user.id) 
                   .inner-name #{chat.infoUser.fullName}
-                .inner-content
-                  | #{chat.content}
+                if(chat.content)
+                  .inner-content
+                    | #{chat.content}
+                if(chat.images)
+                  .inner-images
+                    each image in chat.images
+                      img(src=image)
             div(class="inner-list-typing")   
           .inner-foot 
             form(
@@ -32,6 +37,7 @@ block main
                 placeholder="Nhap noi dung..."
                 name="content"
               )
+              div(class="custom-file-container" data-upload-id="upload-image")
               span(class="button-icon btn btn-light mx-2") 
                 i.fa-regular.fa-face-smile
               button 
