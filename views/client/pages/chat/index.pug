@@ -26,7 +26,11 @@ block main
                   .inner-images
                     each image in chat.images
                       img(src=image)
-            div(class="inner-list-typing")   
+            div(class="inner-list-typing")  
+
+          .inner-preview-images
+            div(class="custom-file-container" data-upload-id="upload-image")
+
           .inner-foot 
             form(
               class="inner-form"
@@ -37,7 +41,11 @@ block main
                 placeholder="Nhap noi dung..."
                 name="content"
               )
-              div(class="custom-file-container" data-upload-id="upload-image")
+              //- dùng label để use for="" vào id="" của input của img trong thư viện 
+              label(
+                for="file-upload-with-preview-upload-image"
+                class="btn btn-light mx-2 mb-0") 
+                i.fa-regular.fa-image
               span(class="button-icon btn btn-light mx-2") 
                 i.fa-regular.fa-face-smile
               button 
