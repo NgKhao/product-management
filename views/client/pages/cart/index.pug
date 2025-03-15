@@ -32,7 +32,7 @@ block main
                     img(src=item.productInfo.thumbnail, alt=item.productInfo.title width="80px")
                   td
                     a(href=`/products/detail/${item.productInfo.slug}`) #{item.productInfo.title}
-                  td #{item.productInfo.priceNew}$
+                  td #{formatVND(item.productInfo.priceNew)}
                   td 
                     input(
                       type="number"
@@ -42,7 +42,7 @@ block main
                       product-id=item.product_id
                       style="width: 60px"
                     )
-                  td #{item.totalPrice}$
+                  td #{formatVND(item.totalPrice)}
                   td 
                     //- trong note.txt có giải thích why dùng method get 
                     a(
@@ -56,7 +56,7 @@ block main
                   class="text-center"
                 ) Giỏ hàng trống
         if(cartDetail.products.length > 0)
-          h3(class="text-right") Tổng đơn hàng: #{cartDetail.totalPrice}$
+          h3(class="text-right") Tổng đơn hàng: #{formatVND(cartDetail.totalPrice)}
 
         div(class="text-right mt-3")
           a(href="/checkout" class="btn btn-success") THANH TOÁN

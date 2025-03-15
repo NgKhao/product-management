@@ -1,3 +1,58 @@
-footer.footer 
-   //- settingGeneral nằm trong settingMiddleWare
-   |#{settingGeneral.copyright}
+footer.footer.py-4.mt-5
+  .container
+    .row
+      .col-lg-4.col-md-6.mb-md-0.mb-4
+        .footer-about
+          h4.footer-title Về chúng tôi
+          p.mt-3 Chúng tôi chuyên cung cấp sách hay, chất lượng với giá thành hợp lý nhất. Đến với chúng tôi, bạn sẽ tìm thấy kho tàng tri thức vô tận.
+          .social-links.mt-3
+            a.social-link.mr-3(href="#")
+              i.fa.fa-facebook
+            a.social-link.mr-3(href="#")
+              i.fa.fa-instagram
+            a.social-link.mr-3(href="#")
+              i.fa.fa-youtube
+            a.social-link(href="#")
+              i.fa.fa-twitter
+
+      .col-lg-4.col-md-6.mb-md-0.mb-4
+        .footer-contact
+          h4.footer-title Liên hệ
+          ul.contact-list.list-unstyled.mt-3
+            li.contact-item.mb-2
+              i.fa.fa-map-marker.mr-2
+              | 123 Đường Sách, Quận 1, TP. Hồ Chí Minh
+            li.contact-item.mb-2
+              i.fa.fa-phone.mr-2
+              | (028) 1234 5678
+            li.contact-item.mb-2
+              i.fa.fa-envelope.mr-2
+              | contact@bookstore.com
+            li.contact-item
+              i.fa.fa-clock-o.mr-2
+              | Thứ 2 - Chủ nhật: 08:00 - 21:00
+
+      .col-lg-4.col-md-12
+        .footer-newsletter
+          h4.footer-title Đăng ký nhận tin
+          p.mt-3 Đăng ký để nhận thông tin về sách mới và các chương trình khuyến mãi hấp dẫn.
+          form.newsletter-form.mt-3
+            .input-group
+              input.form-control(type="email" placeholder="Email của bạn")
+              .input-group-append
+                button.btn.btn-primary(type="submit") Đăng ký
+
+    hr.my-4
+
+    .row
+      .col-md-6
+        .footer-copyright.text-md-left.text-center
+          p.mb-0 #{settingGeneral.copyright}
+      
+      .col-md-6
+        .footer-links.text-md-right.text-center
+          a.footer-link.mr-3(href="/") Trang chủ
+          a.footer-link.mr-3(href="/products") Sản phẩm
+          a.footer-link.mr-3(href="/about") Giới thiệu
+          a.footer-link.mr-3(href="/contact") Liên hệ
+          a.footer-link(href="/privacy") Chính sách

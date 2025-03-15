@@ -1,24 +1,64 @@
+//- extends ../../layouts/default.pug
+//- include ../../mixins/box-head.pug
+//- include ../../mixins/product-layout.pug
+//- include ../../mixins/alert.pug
+
+//- block main 
+
+//-   +alert-success(5000)
+
+//-   .section-products-featured.my-5
+//-     .container
+//-       .row 
+//-         .col-12 
+//-           +box-head("Sản phẩm nổi bật")
+
+//-       +product-grid(productsFeatured)
+
+//-   .section-products-featured.my-5
+//-     .container
+//-       .row 
+//-         .col-12 
+//-           +box-head("Sản phẩm mới")
+
+//-       +product-grid(productsNew)
+
+
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 include ../../mixins/product-layout.pug
 include ../../mixins/alert.pug
 
 block main 
-
+  // Alert notification
   +alert-success(5000)
 
-  .section-products-featured.my-5
+  // Featured products section with enhanced styling
+  section.section-products-featured.py-5.bg-light.rounded-section
     .container
-      .row 
-        .col-12 
+      .row.mb-4
+        .col-12.text-center 
           +box-head("Sản phẩm nổi bật")
+          .section-description.mb-3.text-muted Những cuốn sách được yêu thích nhất
 
-      +product-grid(productsFeatured)
+      .featured-products-wrapper.px-2
+        +product-grid(productsFeatured)
 
-  .section-products-featured.my-5
+  // Divider with book icon
+  .container.my-4.text-center
+    .divider-container.d-flex.align-items-center.justify-content-center
+      .divider-line
+      .divider-icon.px-3
+        i.fas.fa-book.text-primary
+      .divider-line
+
+  // New products section with enhanced styling
+  section.section-products-new.py-5
     .container
-      .row 
-        .col-12 
+      .row.mb-4
+        .col-12.text-center
           +box-head("Sản phẩm mới")
+          .section-description.mb-3.text-muted Những cuốn sách mới nhất của chúng tôi
 
-      +product-grid(productsNew)
+      .new-products-wrapper.px-2
+        +product-grid(productsNew)

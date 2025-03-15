@@ -1,3 +1,8 @@
+//- mixin box-head(title)
+//-     .box-head 
+//-         h2.inner-title #{title}
+
 mixin box-head(title)
-    .box-head 
-        h2.inner-title #{title}
+  .box-head.position-relative.mb-4
+    h2.inner-title.position-relative.d-inline-block.pb-2 #{title}
+      span.title-decoration.position-absolute

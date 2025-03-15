@@ -1,60 +1,176 @@
+//- extends ../../layouts/default.pug
+//- include ../../mixins/box-head.pug
+//- include ../../mixins/alert.pug
+
+
+//- block main
+//-   +alert-success(2000)
+  
+//-   .product-detail 
+//-     .container.my-5 
+//-       button(
+//-         class="btn btn-secondary"
+//-         button-go-back 
+//-       ) Trở lại
+//-       .row 
+//-         .col-6 
+//-           .inner-thumb 
+//-             img(src=product.thumbnail, alt=product.title)
+//-         .col-6 
+//-           h1(class="inner-title") #{product.title}
+
+//-           if (product.category)
+//-             div(class="inner-category")
+//-               span Danh mục: 
+//-               a(href=`/products/${product.category.slug}`) #{product.category.title}
+
+//-           if (product.priceNew)
+//-             div(class="inner-price-new") #{formatVND(product.priceNew)}
+
+//-           if (product.price)
+//-             div(class="inner-price-old") #{formatVND(product.price)}
+
+//-           if (product.discountPercentage)
+//-             div(class="inner-percent") Giảm tới <span>#{product.discountPercentage}%</span>
+
+//-           if (product.stock)
+//-             div(class="inner-stock") Còn lại <span>#{product.stock}</span> sản phẩm
+
+//-           form(
+//-             action=`/cart/add/${product.id}`
+//-             method="POST"
+//-           )
+//-             input(
+//-               class="form-control mb-2"
+//-               type="number"
+//-               name="quantity"
+//-               value="1"
+//-               min="1"
+//-               max=product.stock
+//-             )
+//-             button(
+//-               type="submit"
+//-               class="btn btn-success btn-block"
+//-             ) Thêm vào giỏ hàng
+
+//-     .container.my-5
+//-       .row 
+//-         .col-12 
+//-           +box-head("Mô tả sản phẩm")
+//-           .inner-desc !{product.description}
+
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 include ../../mixins/alert.pug
 
-
 block main
   +alert-success(2000)
   
-  .product-detail 
-    .container.my-5 
-      button(
-        class="btn btn-secondary"
-        button-go-back 
-      ) Trở lại
-      .row 
-        .col-6 
-          .inner-thumb 
-            img(src=product.thumbnail, alt=product.title)
-        .col-6 
-          h1(class="inner-title") #{product.title}
+  section.product-detail.py-4
+    .container.my-3
+      .back-navigation.mb-4
+        button(
+          class="btn btn-outline-primary rounded-pill"
+          button-go-back 
+        )
+          i.fas.fa-arrow-left.me-2
+          | Trở lại
+          
+      .card.border-0.shadow-sm.rounded-3.overflow-hidden
+        .row.g-0
+          .col-md-6
+            .inner-thumb.product-gallery.p-4
+              .badge.position-absolute.top-0.start-0.m-3.px-3.py-2(class=product.discountPercentage ? "bg-danger" : "bg-success")
+                if product.discountPercentage
+                  | -#{product.discountPercentage}%
+                else 
+                  | Mới
+              img.img-fluid.rounded-3(src=product.thumbnail, alt=product.title)
+              
+          .col-md-6
+            .product-info.p-4.p-md-5
+              if (product.category)
+                .inner-category.mb-2
+                  a.text-decoration-none.text-primary.small(href=`/products/${product.category.slug}`)
+                    i.fas.fa-bookmark.me-1
+                    | #{product.category.title}
+                    
+              h1.inner-title.h2.mb-3 #{product.title}
+              
+              .product-meta.mb-4
+                if product.author
+                  .author.mb-2
+                    span.text-muted Tác giả: 
+                    span.fw-medium #{product.author}
+                if product.publisher
+                  .publisher.mb-2
+                    span.text-muted Nhà xuất bản: 
+                    span.fw-medium #{product.publisher}
+                
+              .price-box.d-flex.align-items-end.mb-4
+                if (product.priceNew)
+                  .inner-price-new.me-3
+                    span.h3.fw-bold.text-primary.mb-0 #{formatVND(product.priceNew)}
+                if (product.price)
+                  .inner-price-old
+                    span.text-decoration-line-through.text-muted #{formatVND(product.price)}
+                  
+              if (product.stock)
+                .inner-stock.mb-4.p-2.bg-light.rounded.d-flex.align-items-center
+                  i.fas.fa-box-open.me-2.text-success
+                  | Còn 
+                  span.fw-bold.mx-1 #{product.stock}
+                  | sản phẩm
+                  
+              form.add-to-cart(
+                action=`/cart/add/${product.id}`
+                method="POST"
+              )
+                .row.g-2
+                  .col-4.col-sm-4
+                    .quantity-wrapper.d-flex.align-items-center
+                      button.btn.btn-outline-secondary.rounded.quantity-btn.me-2(
+                        type="button"
+                        onclick="document.getElementById('quantity-input').stepDown(); if(document.getElementById('quantity-input').value < 1) document.getElementById('quantity-input').value = 1;"
+                      ) 
+                        i.fas.fa-minus
 
-          if (product.category)
-            div(class="inner-category")
-              span Danh mục: 
-              a(href=`/products/${product.category.slug}`) #{product.category.title}
+                      input#quantity-input(
+                        class="form-control text-center quantity-input"
+                        type="number"
+                        name="quantity"
+                        value="1"
+                        min="1"
+                        max=product.stock
+                        style="width: 60px;"
+                      )
+                      
+                      button.btn.btn-outline-secondary.rounded.quantity-btn.ms-2(
+                        type="button"
+                        onclick="document.getElementById('quantity-input').stepUp(); if(document.getElementById('quantity-input').value > " + product.stock + ") document.getElementById('quantity-input').value = " + product.stock + ";"
+                      )
+                        i.fas.fa-plus
+                  .col-8.col-sm-8
+                    button(
+                      type="submit"
+                      class="btn btn-primary w-100 py-2"
+                    )
+                      i.fas.fa-shopping-cart.me-2
+                      | Thêm vào giỏ hàng
 
-          if (product.priceNew)
-            div(class="inner-price-new") #{product.priceNew}$
-
-          if (product.price)
-            div(class="inner-price-old") #{product.price}$
-
-          if (product.discountPercentage)
-            div(class="inner-percent") Giảm tới <span>#{product.discountPercentage}$</span>
-
-          if (product.stock)
-            div(class="inner-stock") Còn lại <span>#{product.stock}</span> sản phẩm
-
-          form(
-            action=`/cart/add/${product.id}`
-            method="POST"
-          )
-            input(
-              class="form-control mb-2"
-              type="number"
-              name="quantity"
-              value="1"
-              min="1"
-              max=product.stock
-            )
-            button(
-              type="submit"
-              class="btn btn-success btn-block"
-            ) Thêm vào giỏ hàng
-
-    .container.my-5
-      .row 
-        .col-12 
-          +box-head("Mô tả sản phẩm")
-          .inner-desc !{product.description}
+    section.product-description.my-5
+      .container
+        .card.border-0.shadow-sm.rounded-3
+          .card-body.p-4
+            .row.mb-3
+              .col-12 
+                +box-head("Mô tả sản phẩm")
+            .inner-desc.product-content !{product.description}
+            
+    section.product-recommendations.my-5.bg-light.py-4.rounded-3
+      .container
+        .row.mb-3
+          .col-12 
+            +box-head("Sách cùng danh mục")
+        .related-products
+          // Here you would include your product grid with related products

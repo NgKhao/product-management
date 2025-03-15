@@ -33,9 +33,9 @@ block main
                       width="80px"
                     )
                   td #{item.productInfo.title}
-                  td #{item.productInfo.priceNew}$
+                  td #{formatVND(item.productInfo.priceNew)}
                   td #{item.quantity}
-                  td #{item.totalPrice}$
+                  td #{formatVND(item.totalPrice)}
             else 
               tr 
                 td(
@@ -44,7 +44,7 @@ block main
                 ) Giỏ hàng trống
 
         if(cartDetail.products.length > 0)
-          h3(class="text-right") Tổng đơn hàng: #{cartDetail.totalPrice}$
+          h3(class="text-right") Tổng đơn hàng: #{formatVND(cartDetail.totalPrice)}
       
     if(cartDetail.products.length > 0)
       .row 

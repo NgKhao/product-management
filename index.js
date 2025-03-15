@@ -19,6 +19,7 @@ const route = require("./routes/client/index.route");
 database.connect();
 
 const systemConfig = require("./config/system");
+const formatVND = require("./helpers/products")
 
 const app = express();
 const port = process.env.PORT;
@@ -179,6 +180,8 @@ app.use(
 // chỉ dùng được toàn trong toàn bộ file pug còn trong js phải request mới dùng đc
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 app.locals.moment = moment;
+
+app.locals.formatVND = formatVND.formatVietnamCurrency
 
 // app.use(express.static("public")); // chỉ link trong pug
 app.use(express.static(`${__dirname}/public`)); // khi deploy onl sẽ không hiểu folder public

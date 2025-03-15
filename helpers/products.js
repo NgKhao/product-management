@@ -21,3 +21,27 @@ module.exports.priceNewProduct = (product) => {
 
   return priceNew;
 }
+
+
+// chuyển số thành tiền đ
+module.exports.formatVietnamCurrency = (amount, showCurrency = true, roundToThousand = true) => {
+  // Làm tròn số về số nguyên
+  if (roundToThousand) {
+    // Làm tròn đến hàng nghìn gần nhất
+    amount = Math.round(amount / 1000) * 1000;
+  } else {
+    // Làm tròn thành số nguyên thông thường
+    amount = Math.round(amount);
+  }
+  
+  // Chuyển số thành chuỗi và thêm dấu phân cách hàng nghìn
+  let formattedAmount = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  
+  // Thêm ký hiệu tiền tệ nếu được yêu cầu
+  if (showCurrency) {
+    return formattedAmount + " ₫";
+  } else {
+    return formattedAmount;
+  }
+}
+

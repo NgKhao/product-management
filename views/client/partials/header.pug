@@ -1,54 +1,56 @@
+
 include ../mixins/sub-menu.pug
 
-header.header 
-  .container 
-    .row.align-items-center 
-      .col-3 
-        .inner-logo 
-          a(href="/")  
-            img(src=settingGeneral.logo alt="Logo" width="200px")  
-
-      .col-5
-        form(
-          action="/search"
-          method="GET"
-        )
-          div(class="form-group d-flex mb-0")
-            input(
-              type="text"
-              placeholder="Nhập từ khóa..."
-              class="form-control"
-              name="keyword"
-              value=keyword
-            )
-            button(
-              type="submit"
-              class="btn btn-primary"
-            ) Tìm
-
-      .col-4
-        .inner-menu 
-          ul 
-            li
-              a(href="/") Trang chủ
-            li(class="sub-menu")
-              -const pathProduct = "/products"
-              a(href="/products") Sản phẩm
-              +sub-menu(layoutProductsCategory, pathProduct)
-            li 
-              //- miniCart trong middleware cart 
-              a(href="/cart") Giỏ hàng(#{miniCart ? miniCart.totalQuantity : "0"})
+header.header
+  .container
+    .header-wrapper.py-2
+      .row.align-items-center
+        .col-md-3.col-sm-4.col-6
+          .logo-wrapper
+            a.brand-link(href="/")
+              img.img-fluid(src=settingGeneral.logo alt="Logo" style="max-width: 80px; height: auto;")
+        
+        .col-md-5.col-sm-8.col-12.mt-sm-0.mt-2
+          .search-wrapper
+            form.search-form(action="/search" method="GET")
+              .input-group
+                input.form-control(
+                  type="text"
+                  placeholder="Nhập từ khóa..."
+                  name="keyword"
+                  value=keyword
+                )
+                .input-group-append
+                  button.btn.btn-primary(type="submit" style="white-space: nowrap;") Tìm
+        
+        .col-md-4.col-12.mt-md-0.mt-2
+          .nav-wrapper
+            ul.main-menu.d-flex.justify-content-end.align-items-center.list-unstyled.mb-0
+              li.menu-item.mr-3
+                a.menu-link(href="/") Trang chủ
               
-            //- user trong middleware lấy ra info user 
-            if(user) 
-              li 
-                a(href="/chat") Chat
-              li 
-                a(href="/user/info") #{user.fullName}
-              li 
-                a(href="/user/logout") Đăng xuất
-            else
-              li 
-                a(href="/user/login") Đăng nhập
-              li 
-                a(href="/user/register") Đăng ký
+              li.menu-item.mr-3.sub-menu
+                -const pathProduct = "/products"
+                a.menu-link(href="/products") Sản phẩm
+                //- Using the existing sub-menu mixin directly
+                +sub-menu(layoutProductsCategory, pathProduct)
+              
+              li.menu-item.mr-3
+                a.menu-link(href="/cart") 
+                  span Giỏ hàng (#{miniCart ? miniCart.totalQuantity : "0"})
+              
+              if(user)
+                li.menu-item.mr-3
+                  a.menu-link(href="/chat") Chat
+                
+                li.menu-item.mr-3
+                  a.menu-link(href="/user/info") #{user.fullName}
+                
+                li.menu-item
+                  a.menu-link(href="/user/logout") Đăng xuất
+              else
+                li.menu-item.mr-3
+                  a.menu-link(href="/user/login") Đăng nhập
+                
+                li.menu-item
+                  a.menu-link(href="/user/register") Đăng ký
